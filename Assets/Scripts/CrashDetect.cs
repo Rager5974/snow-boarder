@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class CrashDetect : MonoBehaviour
+{
+    [SerializeField] float reloadDelay = 1f;
+    [SerializeField] ParticleSystem crashEffect;
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        crashEffect.Play();
+        if (other.tag == "Ground")
+        {
+            crashEffect.Play();
+            Invoke("ReloadScene", reloadDelay);
+        }
+    }
+
+    void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+}
